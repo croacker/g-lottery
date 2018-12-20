@@ -1,4 +1,4 @@
-package persistsql
+package data
 
 import (
 	"fmt"

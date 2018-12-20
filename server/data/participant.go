@@ -6,23 +6,23 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-// User struct
+// Participant struct
 type Participant struct {
 	gorm.Model
 	Surname      string
 	Name         string
 	Patronomic   string
 	Nomination   Nomination `gorm:"foreignkey:NominationId"`
-	NominationId uint
+	NominationID uint
 }
 
-// Participant struct
+// ParticipantManager struct
 type ParticipantManager struct {
 	db *DB
 }
 
 func NewParticipantManager(db *DB) (*ParticipantManager, error) {
-	db.AutoMigrate(&User{})
+	db.AutoMigrate(&Participant{})
 	manager := ParticipantManager{}
 	manager.db = db
 	return &manager, nil
@@ -41,4 +41,10 @@ func (state *ParticipantManager) FindParticipant(surname string) *Participant {
 	participant := Participant{}
 	state.db.Where("surname=?", surname).Find(&participant)
 	return &participant
+}
+
+func (state *ParticipantManager) GetAll() []Participant {
+	var participants []Participant
+	state.db.Find(&participants)
+	return participants
 }
