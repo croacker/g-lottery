@@ -15,7 +15,9 @@ func NewRoutes(api *api.API) *mux.Router {
 
 	// client static files
 	mux.Handle("/", http.FileServer(http.Dir("../client/dist/"))).Methods("GET")
-	mux.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../client/dist/static/js/"))))
+	mux.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../client/dist/js/"))))
+	mux.PathPrefix("/img").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("../client/dist/img/"))))
+	mux.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../client/dist/css/"))))
 
 	// api
 	apiRouter := mux.PathPrefix("/api").Subrouter()
@@ -35,6 +37,9 @@ func NewRoutes(api *api.API) *mux.Router {
 	// participant
 	// participant := a.PathPrefix("/participant").Subrouter()
 	apiRouter.HandleFunc("/participant", api.ParticipantsAll).Methods("GET")
+	apiRouter.HandleFunc("/participant/{id}", api.GetParticipant).Methods("GET")
+	apiRouter.HandleFunc("/participant", api.CreateParticipant).Methods("POST")
+	apiRouter.HandleFunc("/participant/{id}", api.DeleteParticipant).Methods("DELETE")
 	// participant.Handle("/protected/random", negroni.New(
 	// 	negroni.HandlerFunc(auth.JwtMiddleware.HandlerWithNext),
 	// 	negroni.Wrap(http.HandlerFunc(api.SecretQuote)),

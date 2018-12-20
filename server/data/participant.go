@@ -11,7 +11,6 @@ type Participant struct {
 	gorm.Model
 	Surname      string
 	Name         string
-	Patronomic   string
 	Nomination   Nomination `gorm:"foreignkey:NominationId"`
 	NominationID uint
 }
@@ -47,4 +46,29 @@ func (state *ParticipantManager) GetAll() []Participant {
 	var participants []Participant
 	state.db.Find(&participants)
 	return participants
+}
+
+// NominationByID
+func (state *ParticipantManager) ParticipantByID(id string) *Participant {
+	participant := Participant{}
+	state.db.First(&participant, id)
+	return &participant
+}
+
+// DeleteParticipant
+func (state *ParticipantManager) DeleteParticipant(id string) *Participant {
+	participant := Participant{}
+	state.db.Delete(&participant, id)
+	return &participant
+}
+
+// CreateParticipant cre
+func (state *ParticipantManager) CreateParticipant(surname string, name string, nomination *Nomination) *Participant {
+	participant := Participant{
+		Surname:    surname,
+		Name:       name,
+		Nomination: *nomination,
+	}
+	state.db.Create(&participant)
+	return &participant
 }
