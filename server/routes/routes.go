@@ -5,6 +5,7 @@ import (
 
 	"../api"
 	"github.com/gorilla/mux"
+	// "github.com/gorilla/handlers"
 	// "github.com/urfave/negroni"
 )
 
@@ -20,10 +21,12 @@ func NewRoutes(api *api.API) *mux.Router {
 	mux.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../client/dist/css/"))))
 
 	// api
+	mux.HandleFunc("/api", YourHandler)
 	apiRouter := mux.PathPrefix("/api").Subrouter()
 
 	// nominations
 	// nomination := a.PathPrefix("/nomination").Subrouter()
+	// apiRouter.HandleFunc("/nomination", api.NominationOptions).Methods("OPTIONS")
 	apiRouter.HandleFunc("/nomination", api.NominationsAll).Methods("GET")
 	apiRouter.HandleFunc("/nomination/{id}", api.GetNomination).Methods("GET")
 	apiRouter.HandleFunc("/nomination", api.CreateNomination).Methods("POST")
@@ -45,5 +48,12 @@ func NewRoutes(api *api.API) *mux.Router {
 	// 	negroni.Wrap(http.HandlerFunc(api.SecretQuote)),
 	// ))
 
+	// http.ListenAndServe(":3000", handlers.CORS()(apiRouter))
+
 	return mux
+}
+
+//YourHandler
+func YourHandler(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Gorilla!\n"))
 }

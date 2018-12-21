@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexI18n from 'vuex-i18n'
 
-import nomination from './modules/nomination'
-import participant from './modules/participant'
+import nomination from './nomination'
+import participant from './participant'
 
 Vue.use(Vuex)
 

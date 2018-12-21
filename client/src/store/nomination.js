@@ -1,3 +1,5 @@
+import NominationDataMapper from '../data/nomination-data-mapper'
+
 const state = {
     nominations: [],
     nomination: null

@@ -15,12 +15,13 @@ export default class ParticipantDataMapper extends RemoteDataMapper {
       ['DeletedAt', 'DeletedAt'],
       ['Surname', 'Surname'],
       ['Name', 'Name'],
+      ['Chance', 'Chance'],
       ['Nomination', 'Nomination'],
       ['NominationID', 'NominationID'],
     ])
   }
 
   get url() {
-    return '/participants'
+    return '/participant'
   }
 }

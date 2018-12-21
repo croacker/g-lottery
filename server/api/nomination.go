@@ -12,6 +12,13 @@ type NominationJSON struct {
 	Name string `json:"name"`
 }
 
+// NominationOptions -
+func (api *API) NominationOptions(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
+}
+
 // NominationsAll -
 func (api *API) NominationsAll(w http.ResponseWriter, req *http.Request) {
 	all := api.nominations.GetAll()

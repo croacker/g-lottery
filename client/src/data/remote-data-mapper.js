@@ -1,8 +1,8 @@
 import BaseDataMapper from './base-data-mapper'
 import Axios from 'axios'
-import {ui} from '../ui-utils'
-import config from 'static/config/prod-config'
-import store from 'vuex-store'
+import {ui} from '../service/ui-utils'
+import config from '../config/prod-config'
+// import store from 'vuex-store'
 
 const networkAddress = config.NETWORKS.network.url
 
@@ -106,9 +106,9 @@ export default class RemoteDataMapper extends BaseDataMapper {
     const formData = props.data
 
     let accessTokenId = ''
-    if (store.getters.accessToken) {
-      accessTokenId = store.getters.accessToken.id
-    }
+    // if (store.getters.accessToken) {
+    //   accessTokenId = store.getters.accessToken.id
+    // }
 
     if (!(url && url.length)) {
       throw new RangeError('Url null or empty')

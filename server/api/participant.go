@@ -11,6 +11,7 @@ import (
 type ParticipantJSON struct {
 	Surname      string `json:"surname"`
 	Name         string `json:"name"`
+	Chance       int    `json:"chance"`
 	NominationId string `json:"nominationId"`
 }
 

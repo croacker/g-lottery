@@ -11,6 +11,7 @@ type Participant struct {
 	gorm.Model
 	Surname      string
 	Name         string
+	Chance       int
 	Nomination   Nomination `gorm:"foreignkey:NominationId"`
 	NominationID uint
 }

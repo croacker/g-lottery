@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import NominationsList from '/component/NominationsList'
+import NominationsList from '@/views/NominationsList.vue'
 
 Vue.use(Router)
 
@@ -15,7 +15,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/',
+      path: '/nominations',
       name: 'nominations',
       component: NominationsList
     },

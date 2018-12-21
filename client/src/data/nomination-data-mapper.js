@@ -1,6 +1,6 @@
-import RemoteDataMapper from './remote-data-mapper'
+import BaseItemDataMapper from './base-item-data-mapper'
 
-export default class NominationDataMapper extends RemoteDataMapper {
+export default class NominationDataMapper extends BaseItemDataMapper {
   insertResult = null
 
   buildInsertJobs(payload) {
@@ -18,6 +18,6 @@ export default class NominationDataMapper extends RemoteDataMapper {
   }
 
   get url() {
-    return '/participants'
+    return '/nomination'
   }
 }
