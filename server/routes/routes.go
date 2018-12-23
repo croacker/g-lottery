@@ -41,8 +41,10 @@ func NewRoutes(api *api.API) *mux.Router {
 	// participant := a.PathPrefix("/participant").Subrouter()
 	apiRouter.HandleFunc("/participant", api.ParticipantsAll).Methods("GET")
 	apiRouter.HandleFunc("/participant/{id}", api.GetParticipant).Methods("GET")
+	apiRouter.HandleFunc("/participantbynomination/{id}", api.GetParticipantsByNominsation).Methods("GET")
 	apiRouter.HandleFunc("/participant", api.CreateParticipant).Methods("POST")
 	apiRouter.HandleFunc("/participant/{id}", api.DeleteParticipant).Methods("DELETE")
+	apiRouter.HandleFunc("/participantbynomination/{id}", api.DeleteParticipantsByNominsation).Methods("DELETE")
 	// participant.Handle("/protected/random", negroni.New(
 	// 	negroni.HandlerFunc(auth.JwtMiddleware.HandlerWithNext),
 	// 	negroni.Wrap(http.HandlerFunc(api.SecretQuote)),

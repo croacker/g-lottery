@@ -41,7 +41,7 @@ func (state *NominationManager) NominationByName(name string) *Nomination {
 // NominationByID
 func (state *NominationManager) NominationByID(id string) *Nomination {
 	nomination := Nomination{}
-	state.db.First(&nomination, id)
+	state.db.First(&nomination, "2")
 	return &nomination
 }
 
@@ -66,4 +66,37 @@ func (state *NominationManager) GetAll() []Nomination {
 	var nominations []Nomination
 	state.db.Find(&nominations)
 	return nominations
+}
+
+//Predefined
+func (state *NominationManager) Predefined() {
+	name := "The best hunter"
+	if !state.HasNomination(name) {
+		state.CreateNomination(name)
+	}
+
+	name = "Креативный класс"
+	if !state.HasNomination(name) {
+		state.CreateNomination(name)
+	}
+
+	name = "Наставник года"
+	if !state.HasNomination(name) {
+		state.CreateNomination(name)
+	}
+
+	name = "Сертификаты"
+	if !state.HasNomination(name) {
+		state.CreateNomination(name)
+	}
+
+	name = "Спасибо"
+	if !state.HasNomination(name) {
+		state.CreateNomination(name)
+	}
+
+	name = "Участник трансформации"
+	if !state.HasNomination(name) {
+		state.CreateNomination(name)
+	}
 }

@@ -19,6 +19,7 @@ func NewAPI(db *data.DB) *API {
 	nominationmgr, _ := data.NewNominationManager(db)
 	participantmgr, _ := data.NewParticipantManager(db)
 
+	nominationmgr.Predefined()
 	return &API{
 		nominations:  nominationmgr,
 		participants: participantmgr,

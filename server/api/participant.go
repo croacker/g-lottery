@@ -2,7 +2,9 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -12,7 +14,7 @@ type ParticipantJSON struct {
 	Surname      string `json:"surname"`
 	Name         string `json:"name"`
 	Chance       int    `json:"chance"`
-	NominationId string `json:"nominationId"`
+	NominationID int    `json:"nominationID"`
 }
 
 // ParticipantsAll -
@@ -25,29 +27,54 @@ func (api *API) ParticipantsAll(w http.ResponseWriter, req *http.Request) {
 func (api *API) GetParticipant(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
-	nomination := api.participants.ParticipantByID(id)
-	toJSON(w, nomination)
+	participant := api.participants.ParticipantByID(id)
+	toJSON(w, participant)
+}
+
+// GetParticipant -
+func (api *API) GetParticipantsByNominsation(w http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	nominationID := params["id"]
+	nomination := api.nominations.NominationByID(nominationID)
+	participants := api.participants.ByNominationID(nomination)
+	toJSON(w, participants)
+}
+
+// GetParticipant -
+func (api *API) DeleteParticipantsByNominsation(w http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	nominationID := params["id"]
+	nomination := api.nominations.NominationByID(nominationID)
+	participants := api.participants.ByNominationID(nomination)
+	for _, participant := range participants {
+		fmt.Println(participant)
+		api.participants.Delete(&participant)
+	}
+	toJSON(w, participants)
 }
 
 // CreateParticipant -
 func (api *API) CreateParticipant(w http.ResponseWriter, req *http.Request) {
 	decoder := json.NewDecoder(req.Body)
-	jsondata := ParticipantJSON{}
-	err := decoder.Decode(&jsondata)
+	jsondatas := []ParticipantJSON{}
+	err := decoder.Decode(&jsondatas)
 
-	if err != nil || jsondata.Name == "" || jsondata.Surname == "" || jsondata.NominationId == "" {
-		http.Error(w, "Missing property", http.StatusBadRequest)
-		return
+	for _, jsondata := range jsondatas {
+		if err != nil || jsondata.Name == "" || jsondata.Surname == "" || jsondata.NominationID == 0 {
+			http.Error(w, "Missing property", http.StatusBadRequest)
+			return
+		}
+
+		if api.participants.HasParticipant(jsondata.Name) {
+			http.Error(w, "nomination already exists", http.StatusBadRequest)
+			return
+		}
+
+		nomination := api.nominations.NominationByID(strconv.Itoa(jsondata.NominationID))
+		newParticipant := api.participants.CreateParticipant(jsondata.Surname, jsondata.Name, jsondata.Chance, nomination)
+		fmt.Println("new Participant ", newParticipant)
 	}
-
-	if api.participants.HasParticipant(jsondata.Name) {
-		http.Error(w, "nomination already exists", http.StatusBadRequest)
-		return
-	}
-
-	nomination := api.nominations.NominationByID(jsondata.NominationId)
-	newParticipant := api.participants.CreateParticipant(jsondata.Surname, jsondata.Name, nomination)
-	toJSON(w, newParticipant)
+	toJSON(w, "")
 }
 
 // DeleteParticipant -

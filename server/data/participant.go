@@ -56,6 +56,13 @@ func (state *ParticipantManager) ParticipantByID(id string) *Participant {
 	return &participant
 }
 
+// NominationByID
+func (state *ParticipantManager) ByNominationID(nomination *Nomination) []Participant {
+	participants := []Participant{}
+	state.db.Where("NominationID = ?", nomination.ID).Find(&participants)
+	return participants
+}
+
 // DeleteParticipant
 func (state *ParticipantManager) DeleteParticipant(id string) *Participant {
 	participant := Participant{}
@@ -63,12 +70,19 @@ func (state *ParticipantManager) DeleteParticipant(id string) *Participant {
 	return &participant
 }
 
+// DeleteParticipant
+func (state *ParticipantManager) Delete(participant *Participant) {
+	state.db.Delete(&participant)
+}
+
 // CreateParticipant cre
-func (state *ParticipantManager) CreateParticipant(surname string, name string, nomination *Nomination) *Participant {
+func (state *ParticipantManager) CreateParticipant(surname string, name string, chance int, nomination *Nomination) *Participant {
 	participant := Participant{
-		Surname:    surname,
-		Name:       name,
-		Nomination: *nomination,
+		Surname: surname,
+		Name:    name,
+		Chance:  chance,
+		// Nomination:   *nomination,
+		NominationID: nomination.ID,
 	}
 	state.db.Create(&participant)
 	return &participant

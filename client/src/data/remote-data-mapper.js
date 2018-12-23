@@ -28,7 +28,7 @@ export default class RemoteDataMapper extends BaseDataMapper {
 
   async getItems(filter) {
     const response = await this.sendRequest({
-      url: this.url,
+      url: this.urlItems,
       method: 'get',
       data: filter
     })
@@ -106,9 +106,6 @@ export default class RemoteDataMapper extends BaseDataMapper {
     const formData = props.data
 
     let accessTokenId = ''
-    // if (store.getters.accessToken) {
-    //   accessTokenId = store.getters.accessToken.id
-    // }
 
     if (!(url && url.length)) {
       throw new RangeError('Url null or empty')

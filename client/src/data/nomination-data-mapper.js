@@ -20,4 +20,8 @@ export default class NominationDataMapper extends BaseItemDataMapper {
   get url() {
     return '/nomination'
   }
+
+  get urlItems() {
+    return '/nomination'
+  }
 }

@@ -1,3 +1,5 @@
+import ParticipantDataMapper from '../data/participant-data-mapper'
+
 const state = {
     participants: [],
     participant: null
@@ -22,6 +24,27 @@ const mutations = {
       const mapper = new ParticipantDataMapper()
       const result = await mapper.getItem(filter)
       commit('FETCH_PARTICIPANT', result)
+    },
+    async insertParticipant({commit}, filter) {
+      const mapper = new ParticipantDataMapper()
+      await mapper.insert(filter)
+    },
+    async insertParticipants({commit}, items) {
+      const mapper = new ParticipantDataMapper()
+      await mapper.insertItems(items)
+    },
+    async deleteParticipant({commit}, filter) {
+      const mapper = new ParticipantDataMapper()
+      await mapper.delete(filter)
+    },
+    async getByNomination({commit}, filter) {
+      const mapper = new ParticipantDataMapper()
+      const result = await mapper.byNomination(filter)
+      commit('FETCH_PARTICIPANTS', result)
+    },
+    async deleteByNomination({commit}, filter) {
+      const mapper = new ParticipantDataMapper()
+      await mapper.deleteByNomination(filter)
     }
   }
   
