@@ -31,6 +31,7 @@ func NewRoutes(api *api.API) *mux.Router {
 	apiRouter.HandleFunc("/nomination/{id}", api.GetNomination).Methods("GET")
 	apiRouter.HandleFunc("/nomination", api.CreateNomination).Methods("POST")
 	apiRouter.HandleFunc("/nomination/{id}", api.DeleteNomination).Methods("DELETE")
+	apiRouter.HandleFunc("/nominationbycode/{id}", api.GetNominationByCode).Methods("GET")
 	// nomination.HandleFunc("/login", api.UserLogin).Methods("POST")
 	// nomination.Handle("/info", negroni.New(
 	// 	negroni.HandlerFunc(auth.JwtMiddleware.HandlerWithNext),
@@ -50,6 +51,7 @@ func NewRoutes(api *api.API) *mux.Router {
 	// 	negroni.Wrap(http.HandlerFunc(api.SecretQuote)),
 	// ))
 	apiRouter.HandleFunc("/nominationresultbynomination/{id}", api.GetNominationResultByNominsation).Methods("GET")
+	apiRouter.HandleFunc("/nominationresult/{id}", api.PlayANominsation).Methods("GET")
 	// http.ListenAndServe(":3000", handlers.CORS()(apiRouter))
 
 	return mux

@@ -1,8 +1,11 @@
 package api
 
 import (
+	"math/rand"
 	"net/http"
+	"time"
 
+	"../data"
 	"github.com/gorilla/mux"
 )
 
@@ -30,9 +33,24 @@ func (api *API) GetNominationResultByNominsation(w http.ResponseWriter, req *htt
 }
 
 // DeleteNominationResult -
-func (api *API) DeleteNominationResult(w http.ResponseWriter, req *http.Request) {
+func (api *API) PlayANominsation(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
-	nomination := api.nominations.DeleteNomination(id)
-	toJSON(w, nomination)
+	nomination := api.nominations.NominationByID(id)
+	participants := api.participants.ByNominationID(nomination)
+	var participantsToPlay []data.Participant
+	for _, participant := range participants {
+		for i := 0; i < participant.Chance; i++ {
+			participantsToPlay = append(participantsToPlay, participant)
+		}
+	}
+	count := len(participantsToPlay)
+	winnerIdx := random(0, count-1)
+	winner := participantsToPlay[winnerIdx]
+	toJSON(w, winner)
+}
+
+func random(min, max int) int {
+	rand.Seed(time.Now().Unix())
+	return rand.Intn(max-min) + min
 }

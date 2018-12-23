@@ -24,8 +24,32 @@
 </template>
 
 <style>
-body {
+body.home {
     background-image: url('/img/bg.png');
+    background-size: cover;
+}
+body.best-hunter {
+    background-image: url('/img/best-hunter/background.jpg');
+    background-size: cover;
+}
+body.creative-class {
+    background-image: url('/img/creative-class/background.jpg');
+    background-size: cover;
+}
+body.menthor {
+    background-image: url('/img/menthor/background.jpg');
+    background-size: cover;
+}
+body.certificate {
+    background-image: url('/img/certificate/background.jpg');
+    background-size: cover;
+}
+body.thanks {
+    background-image: url('/img/thanks/background.jpg');
+    background-size: cover;
+}
+body.transformation {
+    background-image: url('/img/transformation/background.jpg');
     background-size: cover;
 }
 #app {
@@ -37,11 +61,5 @@ body {
 }
 .buttons-color {
     color: #142F3F;
-}
-.custom-file-input:lang(en)~.custom-file-label::after {
-    content: "Выбрать";
-}
-.custom-file-input:lang(ru)~.custom-file-label::after {
-    content: "Выбрать";
 }
 </style>

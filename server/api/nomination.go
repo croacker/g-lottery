@@ -10,6 +10,7 @@ import (
 // NominationJSON
 type NominationJSON struct {
 	Name string `json:"name"`
+	Code string `json:"code"`
 }
 
 // NominationOptions -
@@ -33,6 +34,14 @@ func (api *API) GetNomination(w http.ResponseWriter, req *http.Request) {
 	toJSON(w, nomination)
 }
 
+// GetNominationByCode -
+func (api *API) GetNominationByCode(w http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	id := params["id"]
+	nomination := api.nominations.NominationByCode(id)
+	toJSON(w, nomination)
+}
+
 // CreateNomination -
 func (api *API) CreateNomination(w http.ResponseWriter, req *http.Request) {
 	decoder := json.NewDecoder(req.Body)
@@ -49,7 +58,7 @@ func (api *API) CreateNomination(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	newNomination := api.nominations.CreateNomination(jsondata.Name)
+	newNomination := api.nominations.CreateNomination(jsondata.Name, jsondata.Code)
 	toJSON(w, newNomination)
 }
 

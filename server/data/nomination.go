@@ -9,6 +9,7 @@ import (
 type Nomination struct {
 	gorm.Model
 	Name string
+	Code string
 }
 
 // NominationManager struct
@@ -31,10 +32,17 @@ func (state *NominationManager) HasNomination(name string) bool {
 	return true
 }
 
-// FindNomination
+// NominationByName
 func (state *NominationManager) NominationByName(name string) *Nomination {
 	nomination := Nomination{}
 	state.db.Where("name=?", name).Find(&nomination)
+	return &nomination
+}
+
+// NominationByCode
+func (state *NominationManager) NominationByCode(code string) *Nomination {
+	nomination := Nomination{}
+	state.db.Where("code=?", code).Find(&nomination)
 	return &nomination
 }
 
@@ -53,9 +61,10 @@ func (state *NominationManager) DeleteNomination(id string) *Nomination {
 }
 
 // CreateNomination
-func (state *NominationManager) CreateNomination(name string) *Nomination {
+func (state *NominationManager) CreateNomination(name string, code string) *Nomination {
 	nomination := Nomination{
 		Name: name,
+		Code: code,
 	}
 	state.db.Create(&nomination)
 	return &nomination
@@ -71,32 +80,38 @@ func (state *NominationManager) GetAll() []Nomination {
 //Predefined
 func (state *NominationManager) Predefined() {
 	name := "The best hunter"
+	code := "best-hunter"
 	if !state.HasNomination(name) {
-		state.CreateNomination(name)
+		state.CreateNomination(name, code)
 	}
 
 	name = "Креативный класс"
+	code = "creative-class"
 	if !state.HasNomination(name) {
-		state.CreateNomination(name)
+		state.CreateNomination(name, code)
 	}
 
 	name = "Наставник года"
+	code = "menthor"
 	if !state.HasNomination(name) {
-		state.CreateNomination(name)
+		state.CreateNomination(name, code)
 	}
 
 	name = "Сертификаты"
+	code = "certificate"
 	if !state.HasNomination(name) {
-		state.CreateNomination(name)
+		state.CreateNomination(name, code)
 	}
 
 	name = "Спасибо"
+	code = "thanks"
 	if !state.HasNomination(name) {
-		state.CreateNomination(name)
+		state.CreateNomination(name, code)
 	}
 
 	name = "Участник трансформации"
+	code = "transformation"
 	if !state.HasNomination(name) {
-		state.CreateNomination(name)
+		state.CreateNomination(name, code)
 	}
 }

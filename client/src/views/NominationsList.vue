@@ -76,9 +76,7 @@ export default {
       const nomiation = this.selectedNomination
       if (nomiation) {
         this.$store.dispatch('deleteByNomination', nomiation)
-        // this.items.forEach(el => {
         this.$store.dispatch('insertParticipants', this.items)
-        // })
       }
     },
     onFileSelect: function () {
