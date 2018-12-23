@@ -22,7 +22,7 @@ export default {
   },
   name: 'nomination-transformation',
   created: function () {
-    this.$store.dispatch('fetchNomination', 'thanks').then((result) => {
+    this.$store.dispatch('fetchNomination', 'transformation').then((result) => {
       const nomination = this.$store.getters.nomination
       this.$store.dispatch('getByNomination', nomination).then((result) => {
         const participants = this.$store.getters.participants

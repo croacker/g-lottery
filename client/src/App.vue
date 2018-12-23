@@ -7,7 +7,22 @@
                     <router-link class="buttons-color" to="/">Home</router-link>
                 </b-nav-item>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/about">About</router-link>
+                    <router-link class="buttons-color" to="/nomination-best-hunter">Best hunter</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-creative-class">Creative class</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-menthor">Menthor</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-certificate">Certificate</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-thanks">Thanks</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-transformation">Transformation</router-link>
                 </b-nav-item>
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item right>

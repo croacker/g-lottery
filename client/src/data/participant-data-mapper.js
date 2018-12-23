@@ -63,6 +63,9 @@ export default class ParticipantDataMapper extends RemoteDataMapper {
 
       item[internalKey] = value
     }
+    item.surname = item.surname || '' 
+    item.name = item.name || '' 
+    item.description = item.surname + ' ' + item.name
     return item
   }
 

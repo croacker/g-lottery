@@ -3,7 +3,7 @@
   <div class="action">
     <div class="participant-name-container-inner">
       <div class="call-button-container participant-name-container">
-        <span class="participant-name-text">{{caption}}</span>
+        <span  @click="startPlayNomination" class="participant-name-text">{{caption}}</span>
       </div>
     </div>
   </div>
@@ -41,14 +41,46 @@ export default {
       items: []
     }
   },
-  methods: {}
+  methods: {
+    startPlayNomination() {
+      const participants = this.$store.getters.participants
+      this.caption = participants[0].description
+
+      const component = this
+      let i = 1;
+      let participantsCount = participants.length
+      let maxLength = Math.max.apply(Math, participants.map(function (el) { return el.description.length }));
+
+      (function myLoop() {
+        setTimeout(function () {
+          var rand = Math.random() * participantsCount
+          rand = Math.round(rand);
+          let participant = participants[rand]
+          
+          rand = Math.random() * maxLength
+          rand = Math.round(rand);
+
+          let symb = participant.description[rand]
+          let caption = component.caption.substr(0, rand - 1)
+            + symb + component.caption.substr(rand + 1, component.caption.length)
+          component.caption = caption            
+          if (i < participants.length){
+            i++
+            myLoop(i);
+          }else{
+            i = 0
+          } 
+        }, 100)
+      })(10);
+    }
+  }
 }
 </script>
 
 <style scoped>
-/* .nomination-button-group {
-  margin: 0 auto;
-} */
+span {
+  display: block;
+}
 
 .action {
   display: flex;
@@ -61,15 +93,19 @@ export default {
   background-image: url('/img/best-hunter/square-border.png');
   background-size: cover;
   padding: 35px;
+  width: 700px;
+  height: 190px;
 }
 
 .participant-name-container-inner {
   background-image: url('/img/best-hunter/square-background.png');
   background-size: cover;
+  width: 700px;
+  height: 190px;
 }
 
 .participant-name-text {
-  font-size: 80px;
+  font-size: 70px;
 }
 
 .buttons-color {
