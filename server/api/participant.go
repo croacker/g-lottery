@@ -11,10 +11,10 @@ import (
 
 // ParticipantJSON
 type ParticipantJSON struct {
-	Surname      string `json:"surname"`
-	Name         string `json:"name"`
-	Chance       int    `json:"chance"`
-	NominationID int    `json:"nominationID"`
+	Surname      string `json:"Surname"`
+	Name         string `json:"Name"`
+	Chance       int    `json:"Chance"`
+	NominationID int    `json:"NominationID"`
 }
 
 // ParticipantsAll -
@@ -60,7 +60,7 @@ func (api *API) CreateParticipant(w http.ResponseWriter, req *http.Request) {
 	err := decoder.Decode(&jsondatas)
 
 	for _, jsondata := range jsondatas {
-		if err != nil || jsondata.Name == "" || jsondata.Surname == "" || jsondata.NominationID == 0 {
+		if err != nil || (jsondata.Name == "" && jsondata.Surname == "") || jsondata.NominationID == 0 {
 			http.Error(w, "Missing property", http.StatusBadRequest)
 			return
 		}

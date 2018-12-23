@@ -49,7 +49,7 @@ func NewRoutes(api *api.API) *mux.Router {
 	// 	negroni.HandlerFunc(auth.JwtMiddleware.HandlerWithNext),
 	// 	negroni.Wrap(http.HandlerFunc(api.SecretQuote)),
 	// ))
-
+	apiRouter.HandleFunc("/nominationresultbynomination/{id}", api.GetNominationResultByNominsation).Methods("GET")
 	// http.ListenAndServe(":3000", handlers.CORS()(apiRouter))
 
 	return mux

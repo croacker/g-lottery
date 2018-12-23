@@ -10,14 +10,10 @@ export default class ParticipantDataMapper extends RemoteDataMapper {
   get fieldMap() {
     return new Map([
       ['ID', 'ID'],
-      ['CreatedAt', 'CreatedAt'],
-      ['UpdatedAt', 'UpdatedAt'],
-      ['DeletedAt', 'DeletedAt'],
-      ['surname', 'surname'],
-      ['name', 'name'],
-      ['chance', 'chance'],
-      ['nomination', 'nomination'],
-      ['nominationID', 'nominationID'],
+      ['surname', 'Surname'],
+      ['name', 'Name'],
+      ['chance', 'Chance'],
+      ['nominationID', 'NominationID'],
     ])
   }
 

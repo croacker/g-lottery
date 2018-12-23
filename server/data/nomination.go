@@ -41,7 +41,7 @@ func (state *NominationManager) NominationByName(name string) *Nomination {
 // NominationByID
 func (state *NominationManager) NominationByID(id string) *Nomination {
 	nomination := Nomination{}
-	state.db.First(&nomination, "2")
+	state.db.First(&nomination, id)
 	return &nomination
 }
 

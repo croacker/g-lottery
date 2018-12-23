@@ -22,8 +22,7 @@ func NewSqliteDB(databaseName string) *DB {
 		panic(err)
 	}
 
-	//db.LogMode(true)
+	db.LogMode(true)
 
 	return &DB{db}
 }
-

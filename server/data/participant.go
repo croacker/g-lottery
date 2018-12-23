@@ -59,7 +59,7 @@ func (state *ParticipantManager) ParticipantByID(id string) *Participant {
 // NominationByID
 func (state *ParticipantManager) ByNominationID(nomination *Nomination) []Participant {
 	participants := []Participant{}
-	state.db.Where("NominationID = ?", nomination.ID).Find(&participants)
+	state.db.Where("nomination_id = ?", nomination.ID).Find(&participants)
 	return participants
 }
 

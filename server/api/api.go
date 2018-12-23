@@ -9,20 +9,23 @@ import (
 
 // API -
 type API struct {
-	nominations  *data.NominationManager
-	participants *data.ParticipantManager
+	nominations      *data.NominationManager
+	nominationResult *data.NominationResultManager
+	participants     *data.ParticipantManager
 }
 
 // NewAPI -
 func NewAPI(db *data.DB) *API {
 
 	nominationmgr, _ := data.NewNominationManager(db)
+	nominationResultmgr, _ := data.NewNominationResultManager(db)
 	participantmgr, _ := data.NewParticipantManager(db)
 
 	nominationmgr.Predefined()
 	return &API{
-		nominations:  nominationmgr,
-		participants: participantmgr,
+		nominations:      nominationmgr,
+		nominationResult: nominationResultmgr,
+		participants:     participantmgr,
 	}
 }
 

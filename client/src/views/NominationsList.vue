@@ -38,7 +38,21 @@ export default {
   },
   data() {
     return {
-      fields: ['id', 'surname', 'name', 'chance'],
+      //   fields: ['№', 'Фамилия', 'Имя', 'Шанс'],
+      fields: [
+          {
+          key:'id',
+          label:'',
+          }, {
+          key:'surname',
+          label:'Фамилия'
+       }, {
+          key:'name',
+          label:'Имя'
+       }, {
+          key:'chance',
+          label:'Шанс'
+       }],
       items: [],
       file: null,
       selectedNomination: null,
@@ -52,18 +66,18 @@ export default {
     onSelectedNominationChange: function (val) {
       this.clearParticipants()
       this.$store.dispatch('getByNomination', val).then((result) => {
-       const participants =  this.$store.getters.participants   
-       this.updateParticipants(participants)
+        const participants = this.$store.getters.participants
+        this.updateParticipants(participants)
       }).catch(error => {
         console.log(error)
       })
     },
     onLoadAllClick: function () {
       const nomiation = this.selectedNomination
-       if (nomiation) {
+      if (nomiation) {
         this.$store.dispatch('deleteByNomination', nomiation)
         // this.items.forEach(el => {
-          this.$store.dispatch('insertParticipants', this.items)
+        this.$store.dispatch('insertParticipants', this.items)
         // })
       }
     },
@@ -103,7 +117,7 @@ export default {
 
     },
     updateParticipants(participants) {
-        const nomiation = this.selectedNomination
+      const nomiation = this.selectedNomination
       let participantsItems = []
       participants.forEach((participant, idx) => {
         participantsItems.push({
