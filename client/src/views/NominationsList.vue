@@ -31,7 +31,7 @@ import FileService from '../service/FileService'
 export default {
     name: 'nominations-list',
     beforeCreate: function () {
-        document.body.className = 'home';
+        document.body.className = 'nomination-list';
     },
     created: function () {
         this.$store.dispatch('fetchNominations').then((result) => {

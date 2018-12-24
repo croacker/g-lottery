@@ -5,25 +5,25 @@
         <div>
             <b-nav pills>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/">Home</router-link>
+                    <router-link class="buttons-color" to="/">Домой</router-link>
                 </b-nav-item>
                 <b-nav-item>
                     <router-link class="buttons-color" to="/nomination-best-hunter">Best hunter</router-link>
                 </b-nav-item>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/nomination-creative-class">Creative class</router-link>
+                    <router-link class="buttons-color" to="/nomination-creative-class">Креативный класс</router-link>
                 </b-nav-item>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/nomination-menthor">Menthor</router-link>
+                    <router-link class="buttons-color" to="/nomination-menthor">Наставник</router-link>
                 </b-nav-item>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/nomination-certificate">Certificate</router-link>
+                    <router-link class="buttons-color" to="/nomination-certificate">Сертификаты</router-link>
                 </b-nav-item>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/nomination-thanks">Thanks</router-link>
+                    <router-link class="buttons-color" to="/nomination-thanks">Спасибо</router-link>
                 </b-nav-item>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/nomination-transformation">Transformation</router-link>
+                    <router-link class="buttons-color" to="/nomination-transformation">Трансформация</router-link>
                 </b-nav-item>
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item right>
@@ -44,6 +44,10 @@ body.home {
     background-image: url('/img/bg.png');
     background-size: cover;
     overflow: hidden;
+}
+body.nomination-list {
+    background-image: url('/img/bg.png');
+    background-size: cover;
 }
 body.best-hunter {
     background-image: url('/img/best-hunter/background.jpg');

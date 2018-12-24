@@ -1,7 +1,7 @@
 <template>
 <div class="action">
     <div class="participant-name-container">
-        <img class="participant-name-background" src="/img/best-hunter/square-background.png" alt="">
+        <img class="participant-name-background" src="/img/common/square-background.png" alt="">
         <div>
             <table class="participant-name-table">
                 <tr>
@@ -29,7 +29,7 @@ export default {
         this.$store.dispatch('fetchNominationsResults').then((result) => {
             let winnerResult = component.getExistsWinner()
             if (!winnerResult) {
-                this.$store.dispatch('fetchNomination', 'best-hunter').then((result) => {
+                this.$store.dispatch('fetchNomination', NOMINATION_CODE).then((result) => {
                     const nomination = this.$store.getters.nomination
                     this.$store.dispatch('getByNomination', nomination).then((result) => {
                         const participants = this.$store.getters.participants
@@ -47,24 +47,23 @@ export default {
     },
     data() {
         return {
-            caption: 'Image thumbnails',
             nomination: null,
-            items: [],
-            columnsCount: 0,
             columnsData: TITLE.split(''),
             participantDescriptions: [],
         }
     },
     methods: {
         startPlayNomination() {
-            const animateTimerId = this.animateTitle()
-            let nomination = this.$store.getters.nomination
-            this.$store.dispatch('playNomination', nomination.ID)
-            setTimeout(() => {
-              clearInterval(animateTimerId);
-              let winnerResult = this.getExistsWinner()
-              this.showWinner(winnerResult)
-            }, 10000)            
+            if (this.participantDescriptions.length != 0) {
+                const animateTimerId = this.animateTitle()
+                let nomination = this.$store.getters.nomination
+                this.$store.dispatch('playNomination', nomination.ID)
+                setTimeout(() => {
+                    clearInterval(animateTimerId);
+                    let winnerResult = this.getExistsWinner()
+                    this.showWinner(winnerResult)
+                }, 10000)
+            }
         },
         processParticipants(participants) {
             const participantDescriptions = []
@@ -89,14 +88,14 @@ export default {
             return description
         },
         showWinner(winnerResult) {
-          const participant = winnerResult.Participant
-          let surname = participant.Surname || '' 
-          let name = participant.Name || ''           
-          
-          let description = surname + '\xa0\xa0' + name
-          description = this.formatDescription(description)
-          
-          this.columnsData = description.slice('')          
+            const participant = winnerResult.Participant
+            let surname = participant.Surname || ''
+            let name = participant.Name || ''
+
+            let description = surname + '\xa0\xa0' + name
+            description = this.formatDescription(description)
+
+            this.columnsData = description.slice('')
         },
         getExistsWinner() {
             const existsResults = this.$store.getters.nominationsResults
@@ -106,7 +105,6 @@ export default {
         },
         animateTitle() {
             const component = this
-            let ii = 0;
             let animateFn = function () {
                 let randomSymbol = component.getRandomSymbol(component.participantDescriptions)
                 let tmpArray = []
@@ -115,7 +113,6 @@ export default {
                 })
                 tmpArray[randomSymbol.number] = randomSymbol.symbol
                 component.columnsData = tmpArray
-                ii++
             }
             return setInterval(animateFn, 50)
         },
@@ -152,7 +149,7 @@ span {
 }
 
 .participant-name-container {
-    border-image: url('/img/best-hunter/square-border.png') 30 round round;
+    border-image: url('/img/common/square-border.png') 30 round round;
     border-width: 30px;
     border-style: solid;
     background-size: cover;
@@ -165,7 +162,7 @@ span {
 }
 
 .participant-name-container-inner {
-    background-image: url('/img/best-hunter/square-background.png');
+    background-image: url('/img/common/square-background.png');
     background-size: cover;
     width: 1500px;
     height: 250px;
