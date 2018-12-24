@@ -95,3 +95,4 @@ typings/
 .dynamodb/
 #client/node_modules/.staging/@babel/code-frame-1f531dcb/LICENSE
 client/dist
+client/package-lock.json
