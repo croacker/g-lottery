@@ -14,7 +14,6 @@ func CurrentFolder() string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Current folder:", dir)
 	return dir
 }
 

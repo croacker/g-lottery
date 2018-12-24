@@ -1,6 +1,6 @@
 <template>
   <div class="home">  
-    <Welcome msg="Welcome"/>
+    <Welcome msg="Перед началом работы, загрузите участников!"/>
   </div>
 </template>
 

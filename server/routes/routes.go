@@ -1,9 +1,11 @@
 package routes
 
 import (
+	"log"
 	"net/http"
 
 	"../api"
+	"../conf"
 	"github.com/gorilla/mux"
 	// "github.com/gorilla/handlers"
 	// "github.com/urfave/negroni"
@@ -11,15 +13,17 @@ import (
 
 // NewRoutes builds the routes for the api
 func NewRoutes(api *api.API) *mux.Router {
-
+	configuration := conf.Get()
 	mux := mux.NewRouter()
 
 	// client static files
-	mux.Handle("/", http.FileServer(http.Dir("../client/dist/"))).Methods("GET")
-	mux.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../client/dist/js/"))))
-	mux.PathPrefix("/img").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("../client/dist/img/"))))
-	mux.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../client/dist/css/"))))
-	mux.PathPrefix("/font").Handler(http.StripPrefix("/font/", http.FileServer(http.Dir("../client/dist/font/"))))
+	clientFolder := configuration.ClientFolder
+	log.Printf("Clietn folder %s", clientFolder)
+	mux.Handle("/", http.FileServer(http.Dir(clientFolder+"/"))).Methods("GET")
+	mux.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir(clientFolder+"/js/"))))
+	mux.PathPrefix("/img").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir(clientFolder+"/img/"))))
+	mux.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir(clientFolder+"/css/"))))
+	mux.PathPrefix("/font").Handler(http.StripPrefix("/font/", http.FileServer(http.Dir(clientFolder+"/font/"))))
 
 	// api
 	mux.HandleFunc("/api", YourHandler)

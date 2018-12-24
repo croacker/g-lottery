@@ -14,7 +14,8 @@ const fileName = "conf.json"
 
 //Configuration Конфигурация приложения
 type Configuration struct {
-	IncomingCheckFolder string
+	Port string
+	ClientFolder string
 	Sqlite              SqliteConfig
 }
 
@@ -57,7 +58,8 @@ func makeDefault() *Configuration {
 	fmt.Println("Make default configuration", fullFileName)
 
 	configuration := Configuration{
-		IncomingCheckFolder: "check", //"/home/alex/tmp/check"
+		Port: "3000",
+		ClientFolder: "../client/dist",
 		Sqlite: SqliteConfig{
 			DbPath: "./db/h-accounting.db",
 		},

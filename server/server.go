@@ -1,9 +1,12 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"./api"
+	"./commonutils"
+	"./conf"
 	"./data"
 	"./routes"
 	"github.com/gorilla/mux"
@@ -15,13 +18,19 @@ type WithCORS struct {
 }
 
 func main() {
+	log.Printf("Current folder %s", commonutils.CurrentFolder())
+	configuration := conf.Get()
 	db := data.NewSqliteDB("data.db")
 	api := api.NewAPI(db)
 	routes := routes.NewRoutes(api)
-	http.ListenAndServe(":3000", &WithCORS{routes})
+
+	port := ":" + configuration.Port
+	log.Printf("Server listening at: 127.0.0.1%s", port)
+	http.ListenAndServe(port, &WithCORS{routes})
 }
 
 func (s *WithCORS) ServeHTTP(res http.ResponseWriter, req *http.Request) {
+	log.Printf("%s %s %s\n", req.RemoteAddr, req.Method, req.URL)
 	if origin := req.Header.Get("Origin"); origin != "" {
 		res.Header().Set("Access-Control-Allow-Origin", origin)
 		res.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")

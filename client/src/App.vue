@@ -1,6 +1,5 @@
 <template>
 <div id="app">
-    <!-- <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebasneueregular" type="text/css"/> -->
     <div id="nav">
         <div>
             <b-nav pills>
