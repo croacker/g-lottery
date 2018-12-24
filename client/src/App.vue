@@ -7,7 +7,22 @@
                     <router-link class="buttons-color" to="/">Home</router-link>
                 </b-nav-item>
                 <b-nav-item>
-                    <router-link class="buttons-color" to="/about">About</router-link>
+                    <router-link class="buttons-color" to="/nomination-best-hunter">Best hunter</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-creative-class">Creative class</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-menthor">Menthor</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-certificate">Certificate</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-thanks">Thanks</router-link>
+                </b-nav-item>
+                <b-nav-item>
+                    <router-link class="buttons-color" to="/nomination-transformation">Transformation</router-link>
                 </b-nav-item>
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item right>
@@ -24,8 +39,32 @@
 </template>
 
 <style>
-body {
+body.home {
     background-image: url('/img/bg.png');
+    background-size: cover;
+}
+body.best-hunter {
+    background-image: url('/img/best-hunter/background.jpg');
+    background-size: cover;
+}
+body.creative-class {
+    background-image: url('/img/creative-class/background.jpg');
+    background-size: cover;
+}
+body.menthor {
+    background-image: url('/img/menthor/background.jpg');
+    background-size: cover;
+}
+body.certificate {
+    background-image: url('/img/certificate/background.jpg');
+    background-size: cover;
+}
+body.thanks {
+    background-image: url('/img/thanks/background.jpg');
+    background-size: cover;
+}
+body.transformation {
+    background-image: url('/img/transformation/background.jpg');
     background-size: cover;
 }
 #app {
@@ -37,11 +76,5 @@ body {
 }
 .buttons-color {
     color: #142F3F;
-}
-.custom-file-input:lang(en)~.custom-file-label::after {
-    content: "Выбрать";
-}
-.custom-file-input:lang(ru)~.custom-file-label::after {
-    content: "Выбрать";
 }
 </style>

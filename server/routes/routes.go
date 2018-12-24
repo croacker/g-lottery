@@ -31,6 +31,7 @@ func NewRoutes(api *api.API) *mux.Router {
 	apiRouter.HandleFunc("/nomination/{id}", api.GetNomination).Methods("GET")
 	apiRouter.HandleFunc("/nomination", api.CreateNomination).Methods("POST")
 	apiRouter.HandleFunc("/nomination/{id}", api.DeleteNomination).Methods("DELETE")
+	apiRouter.HandleFunc("/nominationbycode/{id}", api.GetNominationByCode).Methods("GET")
 	// nomination.HandleFunc("/login", api.UserLogin).Methods("POST")
 	// nomination.Handle("/info", negroni.New(
 	// 	negroni.HandlerFunc(auth.JwtMiddleware.HandlerWithNext),
@@ -41,13 +42,16 @@ func NewRoutes(api *api.API) *mux.Router {
 	// participant := a.PathPrefix("/participant").Subrouter()
 	apiRouter.HandleFunc("/participant", api.ParticipantsAll).Methods("GET")
 	apiRouter.HandleFunc("/participant/{id}", api.GetParticipant).Methods("GET")
+	apiRouter.HandleFunc("/participantbynomination/{id}", api.GetParticipantsByNominsation).Methods("GET")
 	apiRouter.HandleFunc("/participant", api.CreateParticipant).Methods("POST")
 	apiRouter.HandleFunc("/participant/{id}", api.DeleteParticipant).Methods("DELETE")
+	apiRouter.HandleFunc("/participantbynomination/{id}", api.DeleteParticipantsByNominsation).Methods("DELETE")
 	// participant.Handle("/protected/random", negroni.New(
 	// 	negroni.HandlerFunc(auth.JwtMiddleware.HandlerWithNext),
 	// 	negroni.Wrap(http.HandlerFunc(api.SecretQuote)),
 	// ))
-
+	apiRouter.HandleFunc("/nominationresultbynomination/{id}", api.GetNominationResultByNominsation).Methods("GET")
+	apiRouter.HandleFunc("/nominationresult/{id}", api.PlayANominsation).Methods("GET")
 	// http.ListenAndServe(":3000", handlers.CORS()(apiRouter))
 
 	return mux

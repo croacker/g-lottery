@@ -21,9 +21,9 @@ const mutations = {
       const result = await mapper.getItems(filter)
       commit('FETCH_NOMINATIONS', result)
     },
-    async fetchNomination({commit}, filter) {
+    async fetchNomination({commit}, code) {
       const mapper = new NominationDataMapper()
-      const result = await mapper.getItem(filter)
+      const result = await mapper.getItem(code)
       commit('FETCH_NOMINATION', result)
     }
   }
