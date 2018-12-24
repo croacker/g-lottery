@@ -19,6 +19,7 @@ func NewRoutes(api *api.API) *mux.Router {
 	mux.PathPrefix("/js").Handler(http.StripPrefix("/js/", http.FileServer(http.Dir("../client/dist/js/"))))
 	mux.PathPrefix("/img").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("../client/dist/img/"))))
 	mux.PathPrefix("/css").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("../client/dist/css/"))))
+	mux.PathPrefix("/font").Handler(http.StripPrefix("/font/", http.FileServer(http.Dir("../client/dist/font/"))))
 
 	// api
 	mux.HandleFunc("/api", YourHandler)
@@ -50,8 +51,10 @@ func NewRoutes(api *api.API) *mux.Router {
 	// 	negroni.HandlerFunc(auth.JwtMiddleware.HandlerWithNext),
 	// 	negroni.Wrap(http.HandlerFunc(api.SecretQuote)),
 	// ))
+	apiRouter.HandleFunc("/nominationresultbynomination", api.NominationsResultAll).Methods("GET")
 	apiRouter.HandleFunc("/nominationresultbynomination/{id}", api.GetNominationResultByNominsation).Methods("GET")
 	apiRouter.HandleFunc("/nominationresult/{id}", api.PlayANominsation).Methods("GET")
+	apiRouter.HandleFunc("/nominationresult/{id}", api.DeletePlayANominsation).Methods("DELETE")
 	// http.ListenAndServe(":3000", handlers.CORS()(apiRouter))
 
 	return mux

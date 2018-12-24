@@ -5,6 +5,7 @@ import VuexPersistence from 'vuex-persist'
 
 import nomination from './store/nomination'
 import participant from './store/participant'
+import nominationResult from './store/nominationResult'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ export default new Vuex.Store({
   getters: {},
   modules: {
     nomination,
-    participant
+    participant,
+    nominationResult
   },
   state: {},
   mutations: {},
