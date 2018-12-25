@@ -23,6 +23,7 @@ export default {
             return {
                 surname: names[0],
                 name:names[1],
+                department:names[2],
                 chance: chance
             }
         })

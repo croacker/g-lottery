@@ -41,7 +41,7 @@ func (state *NominationResultManager) ByNominationID(nomination *Nomination) *No
 	return &nominationResult
 }
 
-// CreateParticipant cre
+// CreateNominationResult cre
 func (state *NominationResultManager) CreateNominationResult(nomination *Nomination, participant *Participant) *NominationResult {
 	nominationResult := NominationResult{
 		ParticipantID: participant.ID,

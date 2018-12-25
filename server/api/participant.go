@@ -13,6 +13,7 @@ import (
 type ParticipantJSON struct {
 	Surname      string `json:"Surname"`
 	Name         string `json:"Name"`
+	Department   string `json:"Department"`
 	Chance       int    `json:"Chance"`
 	NominationID int    `json:"NominationID"`
 }
@@ -71,7 +72,7 @@ func (api *API) CreateParticipant(w http.ResponseWriter, req *http.Request) {
 		}
 
 		nomination := api.nominations.NominationByID(strconv.Itoa(jsondata.NominationID))
-		newParticipant := api.participants.CreateParticipant(jsondata.Surname, jsondata.Name, jsondata.Chance, nomination)
+		newParticipant := api.participants.CreateParticipant(jsondata.Surname, jsondata.Name, jsondata.Department, jsondata.Chance, nomination)
 		fmt.Println("new Participant ", newParticipant)
 	}
 	toJSON(w, "")

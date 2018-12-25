@@ -12,6 +12,7 @@ export default class ParticipantDataMapper extends RemoteDataMapper {
       ['ID', 'ID'],
       ['surname', 'Surname'],
       ['name', 'Name'],
+      ['department', 'Department'],
       ['chance', 'Chance'],
       ['nominationID', 'NominationID'],
     ])

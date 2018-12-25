@@ -11,6 +11,7 @@ type Participant struct {
 	gorm.Model
 	Surname      string
 	Name         string
+	Department   string
 	Chance       int
 	Nomination   Nomination `gorm:"foreignkey:NominationId"`
 	NominationID uint
@@ -76,12 +77,12 @@ func (state *ParticipantManager) Delete(participant *Participant) {
 }
 
 // CreateParticipant cre
-func (state *ParticipantManager) CreateParticipant(surname string, name string, chance int, nomination *Nomination) *Participant {
+func (state *ParticipantManager) CreateParticipant(surname string, name string, department string, chance int, nomination *Nomination) *Participant {
 	participant := Participant{
-		Surname: surname,
-		Name:    name,
-		Chance:  chance,
-		// Nomination:   *nomination,
+		Surname:      surname,
+		Name:         name,
+		Department:   department,
+		Chance:       chance,
 		NominationID: nomination.ID,
 	}
 	state.db.Create(&participant)

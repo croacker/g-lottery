@@ -4,8 +4,8 @@
         <img class="participant-name-background" src="/img/common/square-background.png" alt="">
         <div>
             <table class="participant-name-table">
-                <tr>
-                    <td v-for="s in columnsData" v-bind:id="columnsData" @click="startPlayNomination">
+                <tr class="participant-name-tr">
+                    <td class="participant-name-td" v-for="s in columnsData" v-bind:id="columnsData" @click="startPlayNomination">
                         {{s}}
                 </td>
                 </tr>
@@ -45,16 +45,25 @@ export default {
             }
         })
     },
+    mounted() {
+        const component = this
+        window.addEventListener('keyup', function (event) {
+            if (event.keyCode === 13) {
+                component.startPlayNomination();
+            }
+        });
+    },
     data() {
         return {
             nomination: null,
             columnsData: TITLE.split(''),
             participantDescriptions: [],
+            winner: null,
         }
     },
     methods: {
         startPlayNomination() {
-            if (this.participantDescriptions.length != 0) {
+            if (!this.winner) {
                 const animateTimerId = this.animateTitle()
                 let nomination = this.$store.getters.nomination
                 this.$store.dispatch('playNomination', nomination.ID)
@@ -91,11 +100,14 @@ export default {
             const participant = winnerResult.Participant
             let surname = participant.Surname || ''
             let name = participant.Name || ''
+            let department = participant.Department || ''
 
-            let description = surname + '\xa0\xa0' + name
+            let description = surname + '\xa0' + name + '\xa0' + department
             description = this.formatDescription(description)
 
             this.columnsData = description.slice('')
+            this.participantDescriptions = []
+            this.winner = participant
         },
         getExistsWinner() {
             const existsResults = this.$store.getters.nominationsResults
@@ -153,7 +165,7 @@ span {
     border-width: 30px;
     border-style: solid;
     background-size: cover;
-    width: 1300px;
+    width: 1350px;
     height: 250px;
     position: absolute;
     top: 55%;
@@ -161,19 +173,12 @@ span {
     transform: translate(-50%, -50%);
 }
 
-.participant-name-container-inner {
-    background-image: url('/img/common/square-background.png');
-    background-size: cover;
-    width: 1500px;
-    height: 250px;
-}
-
 .participant-name-background {
     position: absolute;
-    left: -30px;
+    left: -32px;
     top: -20px;
     opacity: 0.5;
-    width: 1300px;
+    width: 1354px;
     height: 230px;
 }
 
@@ -202,6 +207,12 @@ span {
     height: 100%;
     width: 100%;
     transform: translate(-50%, -50%);
+}
+
+.participant-name-td {
+    line-height: 0px;
+    padding: 0px;
+    border: 0px;
 }
 
 .buttons-color {

@@ -52,6 +52,10 @@ export default {
                 key: 'name',
                 label: 'Имя'
             }, {
+            }, {
+                key: 'department',
+                label: 'Подразделение'
+            }, {
                 key: 'chance',
                 label: 'Шанс'
             }],
@@ -124,6 +128,7 @@ export default {
                     id: idx,
                     surname: participant.surname,
                     name: participant.name,
+                    department: participant.department,
                     chance: participant.chance,
                     nominationID: nomiation.ID
                 })
