@@ -16,8 +16,8 @@
 </template>
 
 <script>
-const TITLE = '        НАЧИНАЕМ!        '
-const MAX_LENGTH = 25
+const TITLE = "Н\xa0\xa0А\xa0\xa0Ч\xa0\xa0И\xa0\xa0Н\xa0\xa0А\xa0\xa0Е\xa0\xa0М\xa0\xa0!".padStart(31,'\xa0').padEnd(35, '\xa0')
+const MAX_LENGTH = 28
 const NOMINATION_CODE = 'creative-class'
 export default {
     beforeCreate: function () {
@@ -91,8 +91,8 @@ export default {
                 leftPad = Math.round(pad)
                 rightPad = MAX_LENGTH - description.length - leftPad
             }
-            description = description.padStart(leftPad + description.length)
-            description = description.padEnd(rightPad + description.length)
+            description = description.padStart(leftPad + description.length, '\xa0')
+            description = description.padEnd(rightPad + description.length, '\xa0')
             description = description.toUpperCase()
             return description
         },

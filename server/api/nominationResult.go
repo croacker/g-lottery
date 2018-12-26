@@ -48,7 +48,7 @@ func (api *API) PlayANominsation(w http.ResponseWriter, req *http.Request) {
 			}
 		}
 		count := len(participantsToPlay)
-		winnerIdx := random(0, count-1)
+		winnerIdx := random(0, count)
 		winner = participantsToPlay[winnerIdx]
 		api.nominationResult.CreateNominationResult(nomination, &winner)
 	} else {
