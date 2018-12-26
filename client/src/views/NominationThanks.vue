@@ -20,7 +20,6 @@ const TITLE = "Н\xa0\xa0А\xa0\xa0Ч\xa0\xa0И\xa0\xa0Н\xa0\xa0А\xa0\xa0Е\xa
 const MAX_LENGTH = 28
 const NOMINATION_CODE = 'thanks'
 const POSSIBLE = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789";
-
 export default {
     beforeCreate: function () {
         document.body.className = 'thanks';
@@ -195,7 +194,7 @@ span {
 }
 
 .participant-name-table {
-    font-size: 95px;
+    font-size: 90px;
     font-family: 'BebasNeueRegular';
     color: aliceblue;
     font-weight: normal;
@@ -206,14 +205,14 @@ span {
     left: 50%;
     height: 100%;
     width: 100%;
-    transform: translate(-50%, -50%);
-    table-layout: fixed;
+    transform: translate(-50%, -50%);  
 }
 
 .participant-name-td{
   line-height: 0px;
   padding: 0px;
   border: 0px;
+  width: 42px;
 }
 
 .buttons-color {

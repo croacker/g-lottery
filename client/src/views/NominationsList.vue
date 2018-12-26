@@ -51,8 +51,7 @@ export default {
             }, {
                 key: 'name',
                 label: 'Имя'
-            }, {
-            }, {
+            }, {}, {
                 key: 'department',
                 label: 'Подразделение'
             }, {
@@ -70,19 +69,24 @@ export default {
     },
     methods: {
         onSelectedNominationChange: function (val) {
-            this.clearParticipants()
-            this.$store.dispatch('getByNomination', val).then((result) => {
-                const participants = this.$store.getters.participants
-                this.updateParticipants(participants)
-            }).catch(error => {
-                console.log(error)
-            })
+            if (val) {
+                this.clearParticipants()
+                this.$store.dispatch('getByNomination', val).then((result) => {
+                    const participants = this.$store.getters.participants
+                    this.updateParticipants(participants)
+                }).catch(error => {
+                    console.log(error)
+                })
+            }
         },
         onLoadAllClick: function () {
-            const nomiation = this.selectedNomination
-            if (nomiation) {
-                this.$store.dispatch('deleteByNomination', nomiation)
+            const nomination = this.selectedNomination
+            if (nomination) {
+                this.$store.dispatch('deleteByNomination', nomination)
                 this.$store.dispatch('insertParticipants', this.items)
+                if (nomination) {
+                    this.$store.dispatch('deleteNominationResult', nomination.ID)
+                }
             }
         },
         onFileSelect: function () {
@@ -122,18 +126,20 @@ export default {
         },
         updateParticipants(participants) {
             const nomiation = this.selectedNomination
-            let participantsItems = []
-            participants.forEach((participant, idx) => {
-                participantsItems.push({
-                    id: idx,
-                    surname: participant.surname,
-                    name: participant.name,
-                    department: participant.department,
-                    chance: participant.chance,
-                    nominationID: nomiation.ID
-                })
-            });
-            this.items = participantsItems
+            if (nomiation) {
+                let participantsItems = []
+                participants.forEach((participant, idx) => {
+                    participantsItems.push({
+                        id: idx,
+                        surname: participant.surname,
+                        name: participant.name,
+                        department: participant.department,
+                        chance: participant.chance,
+                        nominationID: nomiation.ID
+                    })
+                });
+                this.items = participantsItems
+            }
         },
         onNominationResultDeleteClick() {
             const nomination = this.selectedNomination

@@ -19,6 +19,7 @@
 const TITLE = "Н\xa0\xa0А\xa0\xa0Ч\xa0\xa0И\xa0\xa0Н\xa0\xa0А\xa0\xa0Е\xa0\xa0М\xa0\xa0!".padStart(31,'\xa0').padEnd(35, '\xa0')
 const MAX_LENGTH = 28
 const NOMINATION_CODE = 'transformation'
+const POSSIBLE = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789";
 export default {
     beforeCreate: function () {
         document.body.className = 'transformation';
@@ -132,16 +133,15 @@ export default {
         getRandomSymbol(participantDescriptions) {
             let participantsCount = participantDescriptions.length
 
-            let pNumber = Math.random() * (participantsCount - 1)
-            pNumber = Math.round(pNumber);
+            let symbolNumber = Math.random() * (POSSIBLE.length - 1)
+            symbolNumber = Math.round(symbolNumber);
+            let symbol = POSSIBLE[symbolNumber]
 
-            let sNumber = Math.random() * MAX_LENGTH
-            sNumber = Math.round(sNumber);
-
-            let participantDescription = participantDescriptions[pNumber]
+            let position = Math.random() * MAX_LENGTH
+            position = Math.round(position);
             return {
-                number: sNumber,
-                symbol: participantDescription[sNumber]
+                number: position,
+                symbol: symbol
             }
         }
     },
@@ -213,6 +213,7 @@ span {
     line-height: 0px;
     padding: 0px;
     border: 0px;
+    width: 42px;
 }
 
 .buttons-color {
