@@ -67,7 +67,7 @@ func (api *API) CreateParticipant(w http.ResponseWriter, req *http.Request) {
 		}
 
 		if api.participants.HasParticipant(jsondata.Name) {
-			http.Error(w, "nomination already exists", http.StatusBadRequest)
+			http.Error(w, "Participant already exists", http.StatusBadRequest)
 			return
 		}
 
