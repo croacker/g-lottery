@@ -66,10 +66,11 @@ func (api *API) CreateParticipant(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 
-		if api.participants.HasParticipant(jsondata.Name) {
-			http.Error(w, "Participant already exists", http.StatusBadRequest)
-			return
-		}
+		// existsParticipant := api.participants.FindParticipant(jsondata.Surname)
+		// if existsParticipant.ID != 0 && jsondata.NominationID !=  {
+		// 	http.Error(w, "nomination already exists", http.StatusBadRequest)
+		// 	return
+		// }
 
 		nomination := api.nominations.NominationByID(strconv.Itoa(jsondata.NominationID))
 		newParticipant := api.participants.CreateParticipant(jsondata.Surname, jsondata.Name, jsondata.Department, jsondata.Chance, nomination)

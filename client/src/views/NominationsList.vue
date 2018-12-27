@@ -82,11 +82,12 @@ export default {
         onLoadAllClick: function () {
             const nomination = this.selectedNomination
             if (nomination) {
-                this.$store.dispatch('deleteByNomination', nomination)
-                this.$store.dispatch('insertParticipants', this.items)
-                if (nomination) {
-                    this.$store.dispatch('deleteNominationResult', nomination.ID)
-                }
+                this.$store.dispatch('deleteByNomination', nomination).then((result) => {
+                    this.$store.dispatch('insertParticipants', this.items)
+                }).catch(error => {
+                    console.log(error)
+                })                
+                this.$store.dispatch('deleteNominationResult', nomination.ID)
             }
         },
         onFileSelect: function () {
