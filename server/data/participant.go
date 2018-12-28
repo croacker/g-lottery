@@ -22,6 +22,7 @@ type ParticipantManager struct {
 	db *DB
 }
 
+// NewParticipantManager factory method
 func NewParticipantManager(db *DB) (*ParticipantManager, error) {
 	db.AutoMigrate(&Participant{})
 	manager := ParticipantManager{}
@@ -44,39 +45,40 @@ func (state *ParticipantManager) FindParticipant(surname string) *Participant {
 	return &participant
 }
 
+// GetAll get all Participants
 func (state *ParticipantManager) GetAll() []Participant {
 	var participants []Participant
 	state.db.Find(&participants)
 	return participants
 }
 
-// NominationByID
-func (state *ParticipantManager) ParticipantByID(id string) *Participant {
+// ByID get Participant by id
+func (state *ParticipantManager) ByID(id string) *Participant {
 	participant := Participant{}
 	state.db.First(&participant, id)
 	return &participant
 }
 
-// NominationByID
+// ByNominationID Participant by Nomination
 func (state *ParticipantManager) ByNominationID(nomination *Nomination) []Participant {
 	participants := []Participant{}
 	state.db.Where("nomination_id = ?", nomination.ID).Find(&participants)
 	return participants
 }
 
-// DeleteParticipant
-func (state *ParticipantManager) DeleteParticipant(id string) *Participant {
+// DeleteById delete Participant by id
+func (state *ParticipantManager) DeleteById(id string) *Participant {
 	participant := Participant{}
 	state.db.Delete(&participant, id)
 	return &participant
 }
 
-// DeleteParticipant
+// Delete delete concrete Participant
 func (state *ParticipantManager) Delete(participant *Participant) {
 	state.db.Delete(&participant)
 }
 
-// CreateParticipant cre
+// CreateParticipant create Participant by surname, name, department, nomination
 func (state *ParticipantManager) CreateParticipant(surname string, name string, department string, chance int, nomination *Nomination) *Participant {
 	participant := Participant{
 		Surname:      surname,

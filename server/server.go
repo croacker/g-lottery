@@ -12,7 +12,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// WithCORS
 type WithCORS struct {
 	r *mux.Router
 }
@@ -22,11 +21,11 @@ func main() {
 	configuration := conf.Get()
 	db := data.NewSqliteDB("data.db")
 	api := api.NewAPI(db)
-	routes := routes.NewRoutes(api)
+	router := routes.NewRoutes(api)
 
 	port := ":" + configuration.Port
 	log.Printf("Server listening at: 127.0.0.1%s", port)
-	http.ListenAndServe(port, &WithCORS{routes})
+	http.ListenAndServe(port, &WithCORS{router})
 }
 
 func (s *WithCORS) ServeHTTP(res http.ResponseWriter, req *http.Request) {

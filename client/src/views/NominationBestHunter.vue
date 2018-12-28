@@ -16,16 +16,20 @@
 </template>
 
 <script>
+import Component from 'vue-class-component'
 import common from '../service/common'
 
 const TITLE = common.NOMINATION_TITLE
 const NOMINATION_CODE = 'best-hunter'
-export default {
-    beforeCreate: function () {
+
+@Component
+class BestHunerNomination extends Component {
+    beforeCreate() {
         document.body.className = NOMINATION_CODE;
-    },
-    name: 'nomination-best-hunter',
-    created: function () {
+    }
+
+    name = 'nomination-best-hunter'
+    created() {
         const component = this
         this.$store.dispatch('fetchNominationsResults').then((result) => {
             let winnerResult = component.getExistsWinner()
@@ -40,7 +44,8 @@ export default {
                 component.showWinner(winnerResult)
             }
         })
-    },
+    }
+
     mounted() {
         const component = this
         window.addEventListener('keyup', function (event) {
@@ -48,54 +53,56 @@ export default {
                 component.startPlayNomination();
             }
         });
-    },
+    }
+
     data() {
         return {
             nomination: null,
             columnsData: TITLE.split(''),
             winner: null,
         }
-    },
-    methods: {
-        startPlayNomination() {
-            if (!this.winner) {
-                const animateTimerId = this.animateTitle()
-                let nomination = this.$store.getters.nomination
-                this.$store.dispatch('playNomination', nomination.ID)
-                setTimeout(() => {
-                    clearInterval(animateTimerId);
-                    let winnerResult = this.getExistsWinner()
-                    this.showWinner(winnerResult)
-                }, 10000)
-            }
-        },
-        showWinner(winnerResult) {
-            const participant = winnerResult.Participant
-            this.columnsData = common.getParticipantDescription(participant).slice('')
-            this.winner = participant
-        },
-        getExistsWinner() {
-            const existsResults = this.$store.getters.nominationsResults
-            return existsResults.find(el => {
-                return el.Nomination.Code === NOMINATION_CODE
-            })
-        },
-        animateTitle() {
-            const component = this
-            component.columnsData = common.START_TITLE.split('')
-            let animateFn = function () {
-                let randomSymbol = common.getRandomSymbol()
-                let tmpArray = []
-                component.columnsData.forEach(el => {
-                    tmpArray.push(el)
-                })
-                tmpArray[randomSymbol.number] = randomSymbol.symbol
-                component.columnsData = tmpArray
-            }
-            return setInterval(animateFn, 50)
+    }
+
+    startPlayNomination() {
+        if (!this.winner) {
+            const animateTimerId = this.animateTitle()
+            let nomination = this.$store.getters.nomination
+            this.$store.dispatch('playNomination', nomination.ID)
+            setTimeout(() => {
+                clearInterval(animateTimerId);
+                let winnerResult = this.getExistsWinner()
+                this.showWinner(winnerResult)
+            }, 10000)
         }
-    },
+    }
+    showWinner(winnerResult) {
+        const participant = winnerResult.Participant
+        this.columnsData = common.getParticipantDescription(participant).slice('')
+        this.winner = participant
+    }
+    getExistsWinner() {
+        const existsResults = this.$store.getters.nominationsResults
+        return existsResults.find(el => {
+            return el.Nomination.Code === NOMINATION_CODE
+        })
+    }
+    animateTitle() {
+        const component = this
+        component.columnsData = common.START_TITLE.split('')
+        let animateFn = function () {
+            let randomSymbol = common.getRandomSymbol()
+            let tmpArray = []
+            component.columnsData.forEach(el => {
+                tmpArray.push(el)
+            })
+            tmpArray[randomSymbol.number] = randomSymbol.symbol
+            component.columnsData = tmpArray
+        }
+        return setInterval(animateFn, 50)
+    }
 }
+
+export default BestHunerNomination
 </script>
 
 <style scoped>

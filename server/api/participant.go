@@ -28,7 +28,7 @@ func (api *API) ParticipantsAll(w http.ResponseWriter, req *http.Request) {
 func (api *API) GetParticipant(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
-	participant := api.participants.ParticipantByID(id)
+	participant := api.participants.ByID(id)
 	toJSON(w, participant)
 }
 
@@ -66,12 +66,6 @@ func (api *API) CreateParticipant(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 
-		// existsParticipant := api.participants.FindParticipant(jsondata.Surname)
-		// if existsParticipant.ID != 0 && jsondata.NominationID !=  {
-		// 	http.Error(w, "nomination already exists", http.StatusBadRequest)
-		// 	return
-		// }
-
 		nomination := api.nominations.NominationByID(strconv.Itoa(jsondata.NominationID))
 		newParticipant := api.participants.CreateParticipant(jsondata.Surname, jsondata.Name, jsondata.Department, jsondata.Chance, nomination)
 		fmt.Println("new Participant ", newParticipant)
@@ -83,6 +77,6 @@ func (api *API) CreateParticipant(w http.ResponseWriter, req *http.Request) {
 func (api *API) DeleteParticipant(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
-	nomination := api.participants.DeleteParticipant(id)
+	nomination := api.participants.DeleteById(id)
 	toJSON(w, nomination)
 }

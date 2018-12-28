@@ -20,13 +20,13 @@ func (api *API) NominationOptions(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
 }
 
-// NominationsAll -
+// NominationsAll get all Nominations
 func (api *API) NominationsAll(w http.ResponseWriter, req *http.Request) {
 	all := api.nominations.GetAll()
 	toJSON(w, all)
 }
 
-// GetNomination -
+// GetNomination - get Nomination by id
 func (api *API) GetNomination(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
@@ -34,7 +34,7 @@ func (api *API) GetNomination(w http.ResponseWriter, req *http.Request) {
 	toJSON(w, nomination)
 }
 
-// GetNominationByCode -
+// GetNominationByCode - get Nomination by code
 func (api *API) GetNominationByCode(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
@@ -42,7 +42,7 @@ func (api *API) GetNominationByCode(w http.ResponseWriter, req *http.Request) {
 	toJSON(w, nomination)
 }
 
-// CreateNomination -
+// CreateNomination - create Nomination
 func (api *API) CreateNomination(w http.ResponseWriter, req *http.Request) {
 	decoder := json.NewDecoder(req.Body)
 	jsondata := NominationJSON{}

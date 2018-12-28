@@ -14,12 +14,12 @@ type NominationResult struct {
 	NominationID  uint
 }
 
-// NominationManager struct
+// NominationResultManager struct
 type NominationResultManager struct {
 	db *DB
 }
 
-//NewNominationResultManager
+//NewNominationResultManager factory method
 func NewNominationResultManager(db *DB) (*NominationResultManager, error) {
 	db.AutoMigrate(&NominationResult{})
 	manager := NominationResultManager{}
@@ -27,21 +27,21 @@ func NewNominationResultManager(db *DB) (*NominationResultManager, error) {
 	return &manager, nil
 }
 
-// ByNominationID
+// ByID get NominationResult by id
 func (state *NominationResultManager) ByID(id string) *NominationResult {
 	nominationResult := NominationResult{}
 	state.db.First(&nominationResult, id)
 	return &nominationResult
 }
 
-// ByNominationID
+// ByNominationID get NominationResult for Nomination
 func (state *NominationResultManager) ByNominationID(nomination *Nomination) *NominationResult {
 	nominationResult := NominationResult{}
 	state.db.Preload("Participant").First(&nominationResult, "nomination_id = ?", nomination.ID)
 	return &nominationResult
 }
 
-// CreateNominationResult cre
+// CreateNominationResult create NominationResult for Nomination and Participant
 func (state *NominationResultManager) CreateNominationResult(nomination *Nomination, participant *Participant) *NominationResult {
 	nominationResult := NominationResult{
 		ParticipantID: participant.ID,
@@ -51,13 +51,14 @@ func (state *NominationResultManager) CreateNominationResult(nomination *Nominat
 	return &nominationResult
 }
 
+// GetAll get All NominationResults
 func (state *NominationResultManager) GetAll() []NominationResult {
 	var results []NominationResult
 	state.db.Preload("Participant").Preload("Nomination").Find(&results)
 	return results
 }
 
-// DeleteParticipant
+// Delete delete NominationResult
 func (state *NominationResultManager) Delete(nominationResult *NominationResult) {
 	state.db.Delete(&nominationResult)
 }

@@ -17,6 +17,7 @@ type NominationManager struct {
 	db *DB
 }
 
+// NewNominationManager factory method
 func NewNominationManager(db *DB) (*NominationManager, error) {
 	db.AutoMigrate(&Nomination{})
 	manager := NominationManager{}
@@ -24,43 +25,43 @@ func NewNominationManager(db *DB) (*NominationManager, error) {
 	return &manager, nil
 }
 
-// HasParticipant -
-func (state *NominationManager) HasNomination(name string) bool {
-	if err := state.db.Where("name=?", name).Find(&Nomination{}).Error; err != nil {
+// HasNomination - check Nomination by code
+func (state *NominationManager) HasNomination(code string) bool {
+	if err := state.db.Where("code=?", code).Find(&Nomination{}).Error; err != nil {
 		return false
 	}
 	return true
 }
 
-// NominationByName
+// NominationByName get Nomination by name
 func (state *NominationManager) NominationByName(name string) *Nomination {
 	nomination := Nomination{}
 	state.db.Where("name=?", name).Find(&nomination)
 	return &nomination
 }
 
-// NominationByCode
+// NominationByCode get Nomination by code
 func (state *NominationManager) NominationByCode(code string) *Nomination {
 	nomination := Nomination{}
 	state.db.Where("code=?", code).Find(&nomination)
 	return &nomination
 }
 
-// NominationByID
+// NominationByID get Nomination by id
 func (state *NominationManager) NominationByID(id string) *Nomination {
 	nomination := Nomination{}
 	state.db.First(&nomination, id)
 	return &nomination
 }
 
-// DeleteNomination
+// DeleteNomination delete Nomination by id
 func (state *NominationManager) DeleteNomination(id string) *Nomination {
 	nomination := Nomination{}
 	state.db.Delete(&nomination, id)
 	return &nomination
 }
 
-// CreateNomination
+// CreateNomination create Nomination by name and code
 func (state *NominationManager) CreateNomination(name string, code string) *Nomination {
 	nomination := Nomination{
 		Name: name,
@@ -70,48 +71,48 @@ func (state *NominationManager) CreateNomination(name string, code string) *Nomi
 	return &nomination
 }
 
-// GetAll ...
+// GetAll get All Nominations
 func (state *NominationManager) GetAll() []Nomination {
 	var nominations []Nomination
 	state.db.Find(&nominations)
 	return nominations
 }
 
-//Predefined
+//Predefined insert predefined Nominations
 func (state *NominationManager) Predefined() {
 	name := "The best hunter"
 	code := "best-hunter"
-	if !state.HasNomination(name) {
+	if !state.HasNomination(code) {
 		state.CreateNomination(name, code)
 	}
 
 	name = "Креативный класс"
 	code = "creative-class"
-	if !state.HasNomination(name) {
+	if !state.HasNomination(code) {
 		state.CreateNomination(name, code)
 	}
 
 	name = "Наставник года"
 	code = "menthor"
-	if !state.HasNomination(name) {
+	if !state.HasNomination(code) {
 		state.CreateNomination(name, code)
 	}
 
 	name = "Сертификаты"
 	code = "certificate"
-	if !state.HasNomination(name) {
+	if !state.HasNomination(code) {
 		state.CreateNomination(name, code)
 	}
 
 	name = "Спасибо"
 	code = "thanks"
-	if !state.HasNomination(name) {
+	if !state.HasNomination(code) {
 		state.CreateNomination(name, code)
 	}
 
 	name = "Участник трансформации"
 	code = "transformation"
-	if !state.HasNomination(name) {
+	if !state.HasNomination(code) {
 		state.CreateNomination(name, code)
 	}
 }
