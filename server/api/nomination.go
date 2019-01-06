@@ -37,7 +37,7 @@ func (api *API) GetNomination(w http.ResponseWriter, req *http.Request) {
 // GetNominationByCode - get Nomination by code
 func (api *API) GetNominationByCode(w http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
-	id := params["id"]
+	id := params["code"]
 	nomination := api.nominations.NominationByCode(id)
 	toJSON(w, nomination)
 }

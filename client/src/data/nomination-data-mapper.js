@@ -18,7 +18,7 @@ export default class NominationDataMapper extends BaseItemDataMapper {
   }
 
   async getItem(code) {
-    const u = `nominationbycode/${code}`
+    const u = `nomination/code/${code}`
     const response = await this.sendRequest({
       url: u,
       method: 'get',

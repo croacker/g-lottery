@@ -67,10 +67,10 @@ export default class NominationResultDataMapper extends BaseItemDataMapper {
   }
 
   get url() {
-    return '/nominationresultbynomination'
+    return '/nominationresult/nomination'
   }
 
   get urlItems() {
-    return '/nominationresultbynomination'
+    return '/nominationresult/nomination'
   }
 }

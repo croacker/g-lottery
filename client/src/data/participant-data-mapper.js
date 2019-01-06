@@ -86,6 +86,6 @@ export default class ParticipantDataMapper extends RemoteDataMapper {
   }
 
   get urlItems() {
-    return '/participantbynomination'
+    return '/participant/nomination'
   }
 }
