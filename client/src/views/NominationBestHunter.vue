@@ -5,7 +5,10 @@
         <div>
             <table class="participant-name-table">
                 <tr class="participant-name-tr">
-                    <td class="participant-name-td" v-for="(symbol, idx) in columnsData" v-bind:id="'symbol-' + idx" @click="startPlayNomination">
+                    <td class="participant-name-td" v-for="(symbol, idx) in columnsData" 
+                    v-bind:id="'symbol-' + idx"
+                    v-bind:key="'key-' + idx"
+                    @click="startPlayNomination">
                         {{symbol}}
                     </td>
                 </tr>
@@ -16,6 +19,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Component from 'vue-class-component'
 import common from '../service/common'
 
@@ -23,7 +27,7 @@ const TITLE = common.NOMINATION_TITLE
 const NOMINATION_CODE = 'best-hunter'
 
 @Component
-class BestHunerNomination extends Component {
+class BestHunterNomination extends Vue {
     beforeCreate() {
         document.body.className = NOMINATION_CODE;
     }
@@ -102,7 +106,7 @@ class BestHunerNomination extends Component {
     }
 }
 
-export default BestHunerNomination
+export default BestHunterNomination
 </script>
 
 <style scoped>
