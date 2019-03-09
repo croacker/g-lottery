@@ -17,24 +17,24 @@ type API struct {
 // NewAPI -
 func NewAPI(db *data.DB) *API {
 
-	nominationmgr, _ := data.NewNominationManager(db)
-	nominationResultmgr, _ := data.NewNominationResultManager(db)
-	participantmgr, _ := data.NewParticipantManager(db)
+	nominationMgr, _ := data.NewNominationManager(db)
+	nominationResultMgr, _ := data.NewNominationResultManager(db)
+	participantMgr, _ := data.NewParticipantManager(db)
 
-	nominationmgr.Predefined()
+	nominationMgr.Predefined()
 	return &API{
-		nominations:      nominationmgr,
-		nominationResult: nominationResultmgr,
-		participants:     participantmgr,
+		nominations:      nominationMgr,
+		nominationResult: nominationResultMgr,
+		participants:     participantMgr,
 	}
 }
 
-func toJSON(w http.ResponseWriter, v interface{}) {
+func toJSON(reposnseWriter http.ResponseWriter, v interface{}) {
 	jsondata, err := json.Marshal(v)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(reposnseWriter, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsondata)
+	reposnseWriter.Header().Set("Content-Type", "application/json")
+	reposnseWriter.Write(jsondata)
 }
