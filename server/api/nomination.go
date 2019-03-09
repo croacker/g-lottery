@@ -14,58 +14,58 @@ type NominationJSON struct {
 }
 
 // NominationOptions -
-func (api *API) NominationOptions(w http.ResponseWriter, req *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-	w.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
+func (api *API) NominationOptions(responseWriter http.ResponseWriter, req *http.Request) {
+	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
+	responseWriter.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	responseWriter.Header().Set("Access-Control-Allow-Headers", "Accept, Accept-Language, Content-Type, YourOwnHeader")
 }
 
 // NominationsAll get all Nominations
-func (api *API) NominationsAll(w http.ResponseWriter, req *http.Request) {
+func (api *API) NominationsAll(responseWriter http.ResponseWriter, req *http.Request) {
 	all := api.nominations.GetAll()
-	toJSON(w, all)
+	toJSON(responseWriter, all)
 }
 
 // GetNomination - get Nomination by id
-func (api *API) GetNomination(w http.ResponseWriter, req *http.Request) {
+func (api *API) GetNomination(responseWriter http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
 	nomination := api.nominations.NominationByID(id)
-	toJSON(w, nomination)
+	toJSON(responseWriter, nomination)
 }
 
 // GetNominationByCode - get Nomination by code
-func (api *API) GetNominationByCode(w http.ResponseWriter, req *http.Request) {
+func (api *API) GetNominationByCode(responseWriter http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["code"]
 	nomination := api.nominations.NominationByCode(id)
-	toJSON(w, nomination)
+	toJSON(responseWriter, nomination)
 }
 
 // CreateNomination - create Nomination
-func (api *API) CreateNomination(w http.ResponseWriter, req *http.Request) {
+func (api *API) CreateNomination(responseWriter http.ResponseWriter, req *http.Request) {
 	decoder := json.NewDecoder(req.Body)
 	jsondata := NominationJSON{}
 	err := decoder.Decode(&jsondata)
 
 	if err != nil || jsondata.Name == "" {
-		http.Error(w, "Missing Name", http.StatusBadRequest)
+		http.Error(responseWriter, "Missing Name", http.StatusBadRequest)
 		return
 	}
 
 	if api.nominations.HasNomination(jsondata.Name) {
-		http.Error(w, "nomination already exists", http.StatusBadRequest)
+		http.Error(responseWriter, "nomination already exists", http.StatusBadRequest)
 		return
 	}
 
 	newNomination := api.nominations.CreateNomination(jsondata.Name, jsondata.Code)
-	toJSON(w, newNomination)
+	toJSON(responseWriter, newNomination)
 }
 
 // DeleteNomination -
-func (api *API) DeleteNomination(w http.ResponseWriter, req *http.Request) {
+func (api *API) DeleteNomination(responseWriter http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	id := params["id"]
 	nomination := api.nominations.DeleteNomination(id)
-	toJSON(w, nomination)
+	toJSON(responseWriter, nomination)
 }
