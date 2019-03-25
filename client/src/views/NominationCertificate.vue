@@ -62,7 +62,8 @@ class CertificateNomination extends Vue {
         }
     }
     startPlayNomination() {
-        if (!this.winner) {
+        const participantsExists = this.$store.getters.participants.length !== 0
+        if (!this.winner && participantsExists) {
             const animateTimerId = this.animateTitle()
             let nomination = this.$store.getters.nomination
             this.$store.dispatch('playNomination', nomination.ID)

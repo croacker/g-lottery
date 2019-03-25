@@ -24,7 +24,7 @@ const TITLE = common.NOMINATION_TITLE
 const NOMINATION_CODE = 'creative-class'
 
 @Component
-class CreativeСlassNomination extends Vue {
+class CreativeClassNomination extends Vue {
     beforeCreate() {
         document.body.className = NOMINATION_CODE;
     }
@@ -62,7 +62,8 @@ class CreativeСlassNomination extends Vue {
     }
 
     startPlayNomination() {
-        if (!this.winner) {
+        const participantsExists = this.$store.getters.participants.length !== 0
+        if (!this.winner && participantsExists) {
             const animateTimerId = this.animateTitle()
             let nomination = this.$store.getters.nomination
             this.$store.dispatch('playNomination', nomination.ID)
@@ -100,7 +101,7 @@ class CreativeСlassNomination extends Vue {
     }
 }
 
-export default CreativeСlassNomination
+export default CreativeClassNomination
 </script>
 
 <style scoped>
